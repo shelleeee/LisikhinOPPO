@@ -29,10 +29,25 @@ def read(txt_file: str) -> list:
             result.append(new_lesson)
     return result
 
+def filter_lessons(lessons: list, room: str = None, teacher: str = None, date: datetime.date = None) -> list:
+    filtered_lessons = []
+    for lesson in lessons:
+        if (room is None or lesson.room == room) and \
+           (teacher is None or lesson.teacher == teacher) and \
+           (date is None or lesson.date == date):
+            filtered_lessons.append(lesson)
+    return filtered_lessons
+
 def show(lessons: list) -> None:
     for lesson in lessons:
         print(f"{lesson.date} {lesson.room} \"{lesson.teacher}\"")
 
+
 # Пример использования
 lessons = read("in.txt")
+print("All lessons:")
 show(lessons)
+
+filtered_lessons = filter_lessons(lessons, date=datetime.date(2030, 10, 12), room=None , teacher= None)
+print("\nFiltered lessons:")
+show(filtered_lessons)
