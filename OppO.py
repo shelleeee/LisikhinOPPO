@@ -29,12 +29,14 @@ def read(txt_file: str) -> list:
             result.append(new_lesson)
     return result
 
-def filter_lessons(lessons: list, room: str = None, teacher: str = None, date: datetime.date = None) -> list:
+def filter_lessons(lessons: list, find_teacher = None, find_room = None, find_date = None) -> list:
     filtered_lessons = []
     for lesson in lessons:
-        if (room is None or lesson.room == room) and \
-           (teacher is None or lesson.teacher == teacher) and \
-           (date is None or lesson.date == date):
+        if (find_teacher and find_teacher.lower() in lesson.teacher.lower()):
+            filtered_lessons.append(lesson)
+        if (find_room and find_room.lower() in lesson.room.lower()):
+            filtered_lessons.append(lesson)
+        if (find_date and find_date.lower() in lesson.date.strftime("%m/%d/%Y").lower()):
             filtered_lessons.append(lesson)
     return filtered_lessons
 
@@ -48,6 +50,6 @@ lessons = read("in.txt")
 print("All lessons:")
 show(lessons)
 
-filtered_lessons = filter_lessons(lessons, date=datetime.date(2030, 10, 12), room=None , teacher= None)
+filtered_lessons = filter_lessons(lessons, "", "1-")
 print("\nFiltered lessons:")
 show(filtered_lessons)
