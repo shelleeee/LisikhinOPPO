@@ -29,7 +29,7 @@ def read(txt_file: str) -> list:
             result.append(new_lesson)
     return result
 
-def filter_lessons(lessons: list, find_teacher = None, find_room = None, find_date = None) -> list:
+def filter_lessons(lessons: list, find_teacher: str = None, find_room: str = None, find_date: str = None) -> list:
     filtered_lessons = []
     for lesson in lessons:
         if (find_teacher and find_teacher.lower() in lesson.teacher.lower()):
